@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kash.triplog.Main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace kash.triplog
         {
             InitializeComponent();
 
-            MainPage = new kash.triplog.MainPage();
+            MainPage = new NavigationPage(new MainView());
         }
 
         protected override void OnStart()
