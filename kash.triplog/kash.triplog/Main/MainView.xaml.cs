@@ -1,4 +1,6 @@
-﻿using System;
+﻿using kash.triplog.Detail;
+using kash.triplog.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,11 @@ namespace kash.triplog.Main
             InitializeComponent();
 
             BindingContext = new MainViewModel(Navigation);
+
+            Entries.ItemTapped += async (sender, e) => {
+                var item = (TripLogEntry)e.Item;
+                await Navigation.PushAsync(new DetailView(item));
+            };
         }
     }
 }

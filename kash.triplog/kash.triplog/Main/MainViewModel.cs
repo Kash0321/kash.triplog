@@ -69,7 +69,7 @@ namespace kash.triplog.Main
             ShowDetail = new Command(() =>
             {
                 Navigation.PopAsync();
-                Navigation.PushAsync(new DetailView());
+                Navigation.PushAsync(new DetailView(new TripLogEntry()));
             });
         }
     }

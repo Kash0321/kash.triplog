@@ -10,7 +10,7 @@
   </ContentPage.ToolbarItems>
 
   <StackLayout x:Name="RootLayout" HorizontalOptions="Center">
-    <ListView ItemsSource="{Binding LogEntries}">
+    <ListView x:Name="Entries" ItemsSource="{Binding LogEntries}">
       <ListView.ItemTemplate>
         <DataTemplate>
           <TextCell Text="{Binding Title}" Detail="{Binding Notes}">
