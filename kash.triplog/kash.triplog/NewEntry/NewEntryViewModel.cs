@@ -1,6 +1,7 @@
 ﻿using kash.triplog.Infrastructure;
 using kash.triplog.Main;
 using kash.triplog.Model;
+using kash.triplog.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,11 @@ namespace kash.triplog.NewEntry
         {
             get
             {
-                return saveCommand ?? (saveCommand = new Command(ExecuteSaveCommand, CanSave));
+                return saveCommand ?? (saveCommand = new Command(async () => await ExecuteSaveCommand(), CanSave));
             }
         }
 
-        void ExecuteSaveCommand()
+        async Task ExecuteSaveCommand()
         {
             var newItem = new TripLogEntry
             {
@@ -35,19 +36,20 @@ namespace kash.triplog.NewEntry
             };
             // TODO: Implement logic to persist Entry in a later chapter.
 
-            Navigation.PopAsync();
-            Navigation.PushAsync(new MainView());
+            await NavService.GoBack();
         }
         bool CanSave()
         {
             return !string.IsNullOrWhiteSpace(Title);
         }
 
-        public NewEntryViewModel(INavigation navigation) : base(navigation)
+        public NewEntryViewModel(INavService navService) : base(navService)
         {
             Date = DateTime.Today;
             Rating = 1;
         }
+
+        public override async Task Init() { }
 
         string title;
         public string Title

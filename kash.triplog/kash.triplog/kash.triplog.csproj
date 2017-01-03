@@ -43,15 +43,13 @@
     </Compile>
     <Compile Include="Detail\DetailViewModel.cs" />
     <Compile Include="Infrastructure\ViewModelBase.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Model\TripLogEntry.cs" />
     <Compile Include="Navigation\INavService.cs" />
+    <Compile Include="Navigation\XamarinFormsNavService.cs" />
     <Compile Include="NewEntry\NewEntryView.xaml.cs">
       <DependentUpon>NewEntryView.xaml</DependentUpon>
     </Compile>
@@ -59,10 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

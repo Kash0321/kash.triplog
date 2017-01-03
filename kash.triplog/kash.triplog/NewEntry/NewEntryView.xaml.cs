@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kash.triplog.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ namespace kash.triplog.NewEntry
         {
             InitializeComponent();
 
-            BindingContext = new NewEntryViewModel(Navigation);
+            var navService = DependencyService.Get<INavService>();
+            BindingContext = new NewEntryViewModel(navService);
         }
     }
 }

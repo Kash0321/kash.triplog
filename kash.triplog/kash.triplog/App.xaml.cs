@@ -1,4 +1,7 @@
-﻿using kash.triplog.Main;
+﻿using kash.triplog.Detail;
+using kash.triplog.Main;
+using kash.triplog.Navigation;
+using kash.triplog.NewEntry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +17,16 @@ namespace kash.triplog
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainView());
+            var mainPage = new NavigationPage(new MainView());
+
+            var navService = DependencyService.Get<INavService>() as XamarinFormsNavService;
+
+            navService.XamarinFormsNav = mainPage.Navigation;
+            navService.RegisterViewMapping(typeof(MainViewModel), typeof(MainView));
+            navService.RegisterViewMapping(typeof(DetailViewModel), typeof(DetailView));
+            navService.RegisterViewMapping(typeof(NewEntryViewModel), typeof(NewEntryView));
+
+            MainPage = mainPage;
         }
 
         protected override void OnStart()

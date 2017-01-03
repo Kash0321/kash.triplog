@@ -1,4 +1,5 @@
 ﻿using kash.triplog.Model;
+using kash.triplog.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,28 @@ namespace kash.triplog.Detail
 {
     public partial class DetailView : ContentPage
     {
-        public DetailView(TripLogEntry entry)
+        readonly Map map;
+        DetailViewModel viewModel
+        {
+            get { return BindingContext as DetailViewModel; }
+        }
+
+        public DetailView()
         {
             InitializeComponent();
 
-            var viewModel = new DetailViewModel(Navigation, entry);
-
-            BindingContext = viewModel;
-
             Title = "Entry Details";
+
+            BindingContextChanged += (sender, args) =>
+            {
+                if (viewModel == null) return;
+                viewModel.PropertyChanged += (s, e) => {
+                    if (e.PropertyName == "Entry")
+                    {
+                        UpdateMap();
+                    }
+                };
+            };
 
             var mainLayout = new Grid
             {
@@ -37,43 +51,31 @@ namespace kash.triplog.Detail
                 }
             };
 
-            var map = new Map();
-
-            // Center the map around the log entry's location
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position
-            (viewModel.Entry.Latitude, viewModel.Entry.Longitude), Distance.FromMiles(.5)));
-
-            // Place a pin on the map for the log entry's location
-            map.Pins.Add(new Pin
-            {
-                Type = PinType.Place,
-                Label = viewModel.Entry.Title,
-                Position = new Position(viewModel.Entry.Latitude, viewModel.Entry.Longitude)
-            });
+            map = new Map();
 
             var title = new Label
             {
                 HorizontalOptions = LayoutOptions.Center
             };
-            title.Text = viewModel.Entry.Title;
+            title.SetBinding(Label.TextProperty, "Entry.Title");
 
             var date = new Label
             {
                 HorizontalOptions = LayoutOptions.Center
             };
-            date.Text = viewModel.Entry.Date.ToString("M");
+            date.SetBinding(Label.TextProperty, "Entry.Date", stringFormat: "{0:M}");
 
             var rating = new Label
             {
                 HorizontalOptions = LayoutOptions.Center
             };
-            rating.Text = $"{viewModel.Entry.Rating} star rating";
+            rating.SetBinding(Label.TextProperty, "Entry.Rating");
 
             var notes = new Label
             {
                 HorizontalOptions = LayoutOptions.Center
             };
-            notes.Text = viewModel.Entry.Notes;
+            notes.SetBinding(Label.TextProperty, "Entry.Notes");
 
             var details = new StackLayout
             {
@@ -94,6 +96,22 @@ namespace kash.triplog.Detail
             mainLayout.Children.Add(details, 0, 1);
             Grid.SetRowSpan(map, 3);
             Content = mainLayout;
+        }
+
+        void UpdateMap()
+        {
+            var pos = new Position(viewModel.Entry.Latitude, viewModel.Entry.Longitude);
+
+            // Center the map around the log entry's location
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(pos, Distance.FromMiles(.5)));
+
+            // Place a pin on the map for the log entry's location
+            map.Pins.Add(new Pin
+            {
+                Type = PinType.Place,
+                Label = viewModel.Entry.Title,
+                Position = pos
+            });
         }
     }
 }

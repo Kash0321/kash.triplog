@@ -1,5 +1,6 @@
 ﻿using kash.triplog.Detail;
 using kash.triplog.Model;
+using kash.triplog.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,28 @@ namespace kash.triplog.Main
 {
     public partial class MainView : ContentPage
     {
+        MainViewModel viewModel = null;
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Initialize MainViewModel
+            if (viewModel != null)
+                await viewModel.Init();
+        }
+
         public MainView()
         {
             InitializeComponent();
 
-            BindingContext = new MainViewModel(Navigation);
+            var navService = DependencyService.Get<INavService>();
+            viewModel = new MainViewModel(navService);
+            BindingContext = viewModel;
 
             Entries.ItemTapped += async (sender, e) => {
                 var item = (TripLogEntry)e.Item;
-                await Navigation.PushAsync(new DetailView(item));
+                viewModel.ViewCommand.Execute(item);
             };
         }
     }

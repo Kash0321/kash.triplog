@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kash.triplog.Navigation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,17 +15,20 @@ namespace kash.triplog.Infrastructure
     /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        //public abstract Task Init();
+        public abstract Task Init();
 
-        public INavigation Navigation { get; protected set; }
+        /// <summary>
+        /// Servicio de navegación entre pantallas de la aplicación
+        /// </summary>
+        protected INavService NavService { get; private set; }
 
         /// <summary>
         /// Inicializa un instancia de <see cref="ViewModelBase"/>
         /// </summary>
-        /// <param name="navigation">Gestión de la navegación entre vistas</param>
-        protected ViewModelBase(INavigation navigation)
+        /// <param name="navService">Gestión de la navegación entre vistas</param>
+        protected ViewModelBase(INavService navService)
         {
-            Navigation = navigation;
+            NavService = navService;
         }
 
         /// <summary>
@@ -40,5 +44,17 @@ namespace kash.triplog.Infrastructure
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    public abstract class ViewModelBase<TParameter> : ViewModelBase
+    {
+        protected ViewModelBase(INavService navService) : base(navService) { }
+
+        public override async Task Init()
+        {
+            await Init(default(TParameter));
+        }
+
+        public abstract Task Init(TParameter parameter);
     }
 }
