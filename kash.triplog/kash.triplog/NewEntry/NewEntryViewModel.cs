@@ -13,27 +13,40 @@ namespace kash.triplog.NewEntry
 {
     public class NewEntryViewModel : ViewModelBase
     {
-        public ICommand SaveCommand { get; private set; }
+        Command saveCommand;
+        public Command SaveCommand
+        {
+            get
+            {
+                return saveCommand ?? (saveCommand = new Command(ExecuteSaveCommand, CanSave));
+            }
+        }
+
+        void ExecuteSaveCommand()
+        {
+            var newItem = new TripLogEntry
+            {
+                Title = Title,
+                Latitude = Latitude,
+                Longitude = Longitude,
+                Date = Date,
+                Rating = Rating,
+                Notes = Notes
+            };
+            // TODO: Implement logic to persist Entry in a later chapter.
+
+            Navigation.PopAsync();
+            Navigation.PushAsync(new MainView());
+        }
+        bool CanSave()
+        {
+            return !string.IsNullOrWhiteSpace(Title);
+        }
 
         public NewEntryViewModel(INavigation navigation) : base(navigation)
         {
-            SaveCommand = new Command(() =>
-            {
-                var newEntry = new TripLogEntry()
-                {
-                    Title = Title,
-                    Latitude = Latitude,
-                    Longitude = Longitude,
-                    Rating = Rating,
-                    Date = Date,
-                    Notes = Notes
-                };
-
-                // TODO: Almacenar la nueva entrada
-
-                Navigation.PopAsync();
-                Navigation.PushAsync(new MainView());
-            });
+            Date = DateTime.Today;
+            Rating = 1;
         }
 
         string title;
@@ -49,6 +62,7 @@ namespace kash.triplog.NewEntry
                 {
                     title = value;
                     OnPropertyChanged();
+                    SaveCommand.ChangeCanExecute();
                 }
             }
         }

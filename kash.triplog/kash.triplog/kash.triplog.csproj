@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Model\TripLogEntry.cs" />
+    <Compile Include="Navigation\INavService.cs" />
     <Compile Include="NewEntry\NewEntryView.xaml.cs">
       <DependentUpon>NewEntryView.xaml</DependentUpon>
     </Compile>

@@ -14,6 +14,8 @@ namespace kash.triplog.Infrastructure
     /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
+        //public abstract Task Init();
+
         public INavigation Navigation { get; protected set; }
 
         /// <summary>
