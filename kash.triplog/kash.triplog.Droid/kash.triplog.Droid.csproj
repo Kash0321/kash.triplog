@@ -148,6 +148,8 @@
     <Compile Include="GeoLocation\LocationService.cs" />
     <Compile Include="IoC\TripLogPlatformModule.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\DatePickerDialogFragment.cs" />
+    <Compile Include="Renderers\DatePickerEntryCellRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

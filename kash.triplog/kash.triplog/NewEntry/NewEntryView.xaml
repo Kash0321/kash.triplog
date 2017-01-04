@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="kash.triplog.NewEntry.NewEntryView"
+             xmlns:ctrls="clr-namespace:kash.triplog.Infrastructure.Controls;assembly=kash.triplog.dll"
              Title="New trip log entry">
 
   <ContentPage.ToolbarItems>
@@ -14,7 +15,7 @@
         <EntryCell Label="Title" Text="{Binding Title}" />
         <EntryCell Label="Latitude" Text="{Binding Latitude}" Keyboard="Numeric" />
         <EntryCell Label="Longitude" Text="{Binding Longitude}" Keyboard="Numeric" />
-        <EntryCell Label="Date" Text="{Binding Date, StringFormat='{0:d}'}" />
+        <ctrls:DatePickerEntryCell Label="Date" Text="{Binding Date, StringFormat='{0:d}'}" />
         <EntryCell Label="Rating" Text="{Binding Rating}" Keyboard="Numeric" />
         <EntryCell Label="Notes" Text="{Binding Notes}" />
       </TableSection>

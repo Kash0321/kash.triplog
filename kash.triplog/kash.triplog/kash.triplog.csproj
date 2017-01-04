@@ -43,6 +43,7 @@
     </Compile>
     <Compile Include="Detail\DetailViewModel.cs" />
     <Compile Include="GeoLocation\ILocationService.cs" />
+    <Compile Include="Infrastructure\Controls\DatePickerEntryCell.cs" />
     <Compile Include="Infrastructure\ViewModelBase.cs" />
     <Compile Include="IoC\TripLogCoreModule.cs" />
     <Compile Include="IoC\TripLogNavModule.cs" />
