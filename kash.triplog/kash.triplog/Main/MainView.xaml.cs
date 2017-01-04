@@ -13,7 +13,10 @@ namespace kash.triplog.Main
 {
     public partial class MainView : ContentPage
     {
-        MainViewModel viewModel = null;
+        MainViewModel viewModel
+        {
+            get { return BindingContext as MainViewModel; }
+        }
 
         protected override async void OnAppearing()
         {
@@ -21,7 +24,9 @@ namespace kash.triplog.Main
 
             // Initialize MainViewModel
             if (viewModel != null)
+            {
                 await viewModel.Init();
+            }
         }
 
         public MainView()
@@ -29,8 +34,7 @@ namespace kash.triplog.Main
             InitializeComponent();
 
             var navService = DependencyService.Get<INavService>();
-            viewModel = new MainViewModel(navService);
-            BindingContext = viewModel;
+            BindingContext = new MainViewModel(navService);
 
             Entries.ItemTapped += async (sender, e) => {
                 var item = (TripLogEntry)e.Item;

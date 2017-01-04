@@ -14,6 +14,7 @@ namespace kash.triplog.Detail
     public partial class DetailView : ContentPage
     {
         readonly Map map;
+
         DetailViewModel viewModel
         {
             get { return BindingContext as DetailViewModel; }
@@ -22,8 +23,6 @@ namespace kash.triplog.Detail
         public DetailView()
         {
             InitializeComponent();
-
-            Title = "Entry Details";
 
             BindingContextChanged += (sender, args) =>
             {
@@ -35,6 +34,11 @@ namespace kash.triplog.Detail
                     }
                 };
             };
+
+            Title = "Entry Details";
+
+            var navService = DependencyService.Get<INavService>();
+            BindingContext = new DetailViewModel(navService);
 
             var mainLayout = new Grid
             {
@@ -94,7 +98,9 @@ namespace kash.triplog.Detail
             mainLayout.Children.Add(map);
             mainLayout.Children.Add(detailsBg, 0, 1);
             mainLayout.Children.Add(details, 0, 1);
+
             Grid.SetRowSpan(map, 3);
+
             Content = mainLayout;
         }
 

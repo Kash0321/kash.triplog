@@ -14,7 +14,16 @@ namespace kash.triplog.Detail
     {
         public DetailViewModel(INavService navService) : base(navService) { }
 
-        public TripLogEntry Entry { get; set; }
+        TripLogEntry entry;
+        public TripLogEntry Entry
+        {
+            get { return entry; }
+            set
+            {
+                entry = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override async Task Init(TripLogEntry entry)
         {

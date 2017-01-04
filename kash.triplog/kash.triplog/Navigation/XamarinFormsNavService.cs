@@ -29,8 +29,7 @@ namespace kash.triplog.Navigation
         {
             get
             {
-                return XamarinFormsNav.NavigationStack != null
-                && XamarinFormsNav.NavigationStack.Count > 0;
+                return XamarinFormsNav.NavigationStack != null && XamarinFormsNav.NavigationStack.Count > 0;
             }
         }
 
@@ -47,32 +46,35 @@ namespace kash.triplog.Navigation
         where TVM : ViewModelBase
         {
             await NavigateToView(typeof(TVM));
-            if (XamarinFormsNav.NavigationStack
-            .Last().BindingContext is ViewModelBase)
-                await ((ViewModelBase)(XamarinFormsNav
-                .NavigationStack.Last().BindingContext)).Init();
+
+            if (XamarinFormsNav.NavigationStack.Last().BindingContext is ViewModelBase)
+            {
+                await ((ViewModelBase)(XamarinFormsNav.NavigationStack.Last().BindingContext)).Init();
+            }
         }
 
-        public async Task NavigateTo<TVM, TParameter>(TParameter parameter)
-        where TVM : ViewModelBase
+        public async Task NavigateTo<TVM, TParameter>(TParameter parameter) where TVM : ViewModelBase
         {
             await NavigateToView(typeof(TVM));
-            if (XamarinFormsNav.NavigationStack
-            .Last().BindingContext is ViewModelBase<TParameter>)
-                await ((ViewModelBase<TParameter>)(XamarinFormsNav
-                    .NavigationStack.Last().BindingContext))
-                    .Init(parameter);
+
+            if (XamarinFormsNav.NavigationStack.Last().BindingContext is ViewModelBase<TParameter>)
+            {
+                await ((ViewModelBase<TParameter>)(XamarinFormsNav.NavigationStack.Last().BindingContext)).Init(parameter);
+            }
         }
 
         async Task NavigateToView(Type viewModelType)
         {
             Type viewType;
+
             if (!_map.TryGetValue(viewModelType, out viewType))
+            {
                 throw new ArgumentException("No view found in View Mapping for " + viewModelType.FullName + ".");
-                var constructor = viewType.GetTypeInfo()
-                .DeclaredConstructors
-                .FirstOrDefault(dc => dc.GetParameters().Count() <= 0);
-                var view = constructor.Invoke(null) as Page;
+            }
+
+            var constructor = viewType.GetTypeInfo().DeclaredConstructors.FirstOrDefault(dc => dc.GetParameters().Count() <= 0);
+            var view = constructor.Invoke(null) as Page;
+
             await XamarinFormsNav.PushAsync(view, true);
         }
 
@@ -80,8 +82,7 @@ namespace kash.triplog.Navigation
         {
             if (XamarinFormsNav.NavigationStack.Any())
             {
-                var lastView = XamarinFormsNav.NavigationStack
-                [XamarinFormsNav.NavigationStack.Count - 2];
+                var lastView = XamarinFormsNav.NavigationStack[XamarinFormsNav.NavigationStack.Count - 2];
                 XamarinFormsNav.RemovePage(lastView);
             }
         }
@@ -89,17 +90,21 @@ namespace kash.triplog.Navigation
         public async Task ClearBackStack()
         {
             if (XamarinFormsNav.NavigationStack.Count <= 1)
+            {
                 return;
-            for (var i = 0; i < XamarinFormsNav.NavigationStack.Count - 1;
-            i++)
-                XamarinFormsNav.RemovePage
-                (XamarinFormsNav.NavigationStack[i]);
+            }
+            for (var i = 0; i < XamarinFormsNav.NavigationStack.Count - 1; i++)
+            {
+                XamarinFormsNav.RemovePage(XamarinFormsNav.NavigationStack[i]);
+            }
         }
 
         public async Task NavigateToUri(Uri uri)
         {
             if (uri == null)
+            {
                 throw new ArgumentException("Invalid URI");
+            }
             Device.OpenUri(uri);
         }
 
