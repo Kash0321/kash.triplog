@@ -1,6 +1,5 @@
 # kash.triplog
 
-## Introducción
 Código fuente del libro Mastering Xamarin.Forms (https://www.packtpub.com/application-development/mastering-xamarinforms) de Packt, adaptado según mi criterio 
 
 ## Adaptaciones principales
