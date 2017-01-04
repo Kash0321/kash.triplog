@@ -1,4 +1,5 @@
-﻿using kash.triplog.Infrastructure;
+﻿using kash.triplog.GeoLocation;
+using kash.triplog.Infrastructure;
 using kash.triplog.Main;
 using kash.triplog.Model;
 using kash.triplog.Navigation;
@@ -14,6 +15,8 @@ namespace kash.triplog.NewEntry
 {
     public class NewEntryViewModel : ViewModelBase
     {
+        ILocationService LocationService { get; set; }
+
         Command saveCommand;
         public Command SaveCommand
         {
@@ -38,18 +41,27 @@ namespace kash.triplog.NewEntry
 
             await NavService.GoBack();
         }
+
         bool CanSave()
         {
             return !string.IsNullOrWhiteSpace(Title);
         }
 
-        public NewEntryViewModel(INavService navService) : base(navService)
+        public NewEntryViewModel(INavService navService, ILocationService locService) : base(navService)
         {
             Date = DateTime.Today;
             Rating = 1;
+
+            LocationService = locService;
         }
 
-        public override async Task Init() { }
+        public override async Task Init()
+        {
+            var coords = await LocationService.GetGeoCoordinatesAsync();
+
+            Latitude = coords.Latitude;
+            Longitude = coords.Longitude;
+        }
 
         string title;
         public string Title

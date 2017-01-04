@@ -14,9 +14,6 @@ namespace kash.triplog.NewEntry
         public NewEntryView()
         {
             InitializeComponent();
-
-            var navService = DependencyService.Get<INavService>();
-            BindingContext = new NewEntryViewModel(navService);
         }
     }
 }

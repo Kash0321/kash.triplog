@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Reflection;
 
-[assembly: Dependency(typeof(kash.triplog.Navigation.XamarinFormsNavService))]
 namespace kash.triplog.Navigation
 {
     /// <summary>
@@ -74,6 +73,9 @@ namespace kash.triplog.Navigation
 
             var constructor = viewType.GetTypeInfo().DeclaredConstructors.FirstOrDefault(dc => dc.GetParameters().Count() <= 0);
             var view = constructor.Invoke(null) as Page;
+
+            var vm = ((App)Application.Current).Kernel.GetService(viewModelType);
+            view.BindingContext = vm;
 
             await XamarinFormsNav.PushAsync(view, true);
         }

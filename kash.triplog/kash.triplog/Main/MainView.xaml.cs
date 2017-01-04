@@ -33,9 +33,6 @@ namespace kash.triplog.Main
         {
             InitializeComponent();
 
-            var navService = DependencyService.Get<INavService>();
-            BindingContext = new MainViewModel(navService);
-
             Entries.ItemTapped += async (sender, e) => {
                 var item = (TripLogEntry)e.Item;
                 viewModel.ViewCommand.Execute(item);

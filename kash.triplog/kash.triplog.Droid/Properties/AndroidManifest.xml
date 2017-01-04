@@ -4,4 +4,6 @@
 	<application android:label="kash.triplog.Droid">
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAknCNnFXNqzhxvchucKpnGFlZJC5d1S-w" />
   </application>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
 </manifest>

@@ -42,11 +42,15 @@
       <DependentUpon>DetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Detail\DetailViewModel.cs" />
+    <Compile Include="GeoLocation\ILocationService.cs" />
     <Compile Include="Infrastructure\ViewModelBase.cs" />
+    <Compile Include="IoC\TripLogCoreModule.cs" />
+    <Compile Include="IoC\TripLogNavModule.cs" />
     <Compile Include="Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\MainViewModel.cs" />
+    <Compile Include="GeoLocation\GeoCoords.cs" />
     <Compile Include="Model\TripLogEntry.cs" />
     <Compile Include="Navigation\INavService.cs" />
     <Compile Include="Navigation\XamarinFormsNavService.cs" />
@@ -63,6 +67,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Portable.Ninject.3.3.1\lib\portable-net4+sl5+wp8+win8+wpa81+monotouch+monoandroid+Xamarin.iOS\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.3.175\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>

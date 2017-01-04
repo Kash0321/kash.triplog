@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using kash.triplog.Droid.IoC;
 
 namespace kash.triplog.Droid
 {
@@ -21,7 +22,7 @@ namespace kash.triplog.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
-            LoadApplication(new App());
+            LoadApplication(new App(new TripLogPlatformModule()));
         }
     }
 }

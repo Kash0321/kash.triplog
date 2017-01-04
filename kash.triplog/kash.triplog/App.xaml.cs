@@ -1,7 +1,10 @@
 ﻿using kash.triplog.Detail;
+using kash.triplog.IoC;
 using kash.triplog.Main;
 using kash.triplog.Navigation;
 using kash.triplog.NewEntry;
+using Ninject;
+using Ninject.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +16,22 @@ namespace kash.triplog
 {
     public partial class App : Application
     {
-        public App()
+        public IKernel Kernel { get; set; }
+
+        public App(params INinjectModule[] platformModules)
         {
             InitializeComponent();
 
             var mainPage = new NavigationPage(new MainView());
 
-            var navService = DependencyService.Get<INavService>() as XamarinFormsNavService;
+            // Register core services
+            Kernel = new StandardKernel(new TripLogCoreModule(), new TripLogNavModule(mainPage.Navigation));
 
-            navService.XamarinFormsNav = mainPage.Navigation;
-            navService.RegisterViewMapping(typeof(MainViewModel), typeof(MainView));
-            navService.RegisterViewMapping(typeof(DetailViewModel), typeof(DetailView));
-            navService.RegisterViewMapping(typeof(NewEntryViewModel), typeof(NewEntryView));
+            // Register platform specific services
+            Kernel.Load(platformModules);
+
+            // Get the MainViewModel from the IoC
+            mainPage.BindingContext = Kernel.Get<MainViewModel>();
 
             MainPage = mainPage;
         }

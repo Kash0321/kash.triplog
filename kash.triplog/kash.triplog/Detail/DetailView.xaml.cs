@@ -37,9 +37,6 @@ namespace kash.triplog.Detail
 
             Title = "Entry Details";
 
-            var navService = DependencyService.Get<INavService>();
-            BindingContext = new DetailViewModel(navService);
-
             var mainLayout = new Grid
             {
                 RowDefinitions = {
