@@ -13,7 +13,7 @@ namespace kash.triplog.Main
 {
     public partial class MainView : ContentPage
     {
-        MainViewModel viewModel
+        MainViewModel ViewModel
         {
             get { return BindingContext as MainViewModel; }
         }
@@ -23,9 +23,9 @@ namespace kash.triplog.Main
             base.OnAppearing();
 
             // Initialize MainViewModel
-            if (viewModel != null)
+            if (ViewModel != null)
             {
-                await viewModel.Init();
+                await ViewModel.Init();
             }
         }
 
@@ -35,7 +35,7 @@ namespace kash.triplog.Main
 
             Entries.ItemTapped += async (sender, e) => {
                 var item = (TripLogEntry)e.Item;
-                viewModel.ViewCommand.Execute(item);
+                ViewModel.ViewCommand.Execute(item);
             };
         }
     }

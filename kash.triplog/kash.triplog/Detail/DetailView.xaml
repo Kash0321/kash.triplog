@@ -1,24 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="kash.triplog.Detail.DetailView">
-  <!--Title="Entry Details">-->
+             xmlns:Maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps.dll"
+             x:Class="kash.triplog.Detail.DetailView"
+             Title="Entry Details">
 
-  <!--<Grid x:Name="MainLayout">
+  <Grid x:Name="MainLayout">
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <StackLayout Grid.Row="0" Grid.Column="0">
+    <Maps:Map x:Name="Map" Grid.Row="0" />
+    <StackLayout x:Name="Details" Grid.Row="1">
       <Label HorizontalTextAlignment="Center" Text="{Binding Entry.Title}" />
-      <Label HorizontalTextAlignment="Center" Text="{Binding Entry.Date}" />
+      <Label HorizontalTextAlignment="Center" Text="{Binding Entry.Date, StringFormat='{0:d}'}" />
       <Label HorizontalTextAlignment="Center" Text="{Binding Entry.Rating}" />
       <Label HorizontalTextAlignment="Center" Text="{Binding Entry.Notes}" />
     </StackLayout>
-  </Grid>-->
+  </Grid>
 
 </ContentPage>

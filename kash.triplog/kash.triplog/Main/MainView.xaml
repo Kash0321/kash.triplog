@@ -13,11 +13,7 @@
     <ListView x:Name="Entries" ItemsSource="{Binding LogEntries}">
       <ListView.ItemTemplate>
         <DataTemplate>
-          <TextCell Text="{Binding Title}" Detail="{Binding Notes}">
-              <!--<TextCell.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ShowDetail}" />
-              </TextCell.GestureRecognizers>-->
-          </TextCell>
+          <TextCell Text="{Binding Title}" Detail="{Binding Notes}" />
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>

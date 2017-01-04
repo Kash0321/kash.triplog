@@ -16,13 +16,13 @@ namespace kash.triplog.Main
 {
     public class MainViewModel : ViewModelBase
     {
-        ObservableCollection<TripLogEntry> _logEntries;
+        ObservableCollection<TripLogEntry> logEntries;
         public ObservableCollection<TripLogEntry> LogEntries
         {
-            get { return _logEntries; }
+            get { return logEntries; }
             set
             {
-                _logEntries = value;
+                logEntries = value;
                 OnPropertyChanged();
             }
         }

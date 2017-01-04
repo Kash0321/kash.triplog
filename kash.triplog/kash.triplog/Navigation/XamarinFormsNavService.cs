@@ -19,11 +19,13 @@ namespace kash.triplog.Navigation
 
         readonly IDictionary<Type, Type> _map = new Dictionary<Type, Type>();
 
+        /// <inheritdoc />
         public void RegisterViewMapping(Type viewModel, Type view)
         {
             _map.Add(viewModel, view);
         }
 
+        /// <inheritdoc />
         public bool CanGoBack
         {
             get
@@ -32,6 +34,7 @@ namespace kash.triplog.Navigation
             }
         }
 
+        /// <inheritdoc />
         public async Task GoBack()
         {
             if (CanGoBack)
@@ -41,6 +44,7 @@ namespace kash.triplog.Navigation
             OnCanGoBackChanged();
         }
 
+        /// <inheritdoc />
         public async Task NavigateTo<TVM>()
         where TVM : ViewModelBase
         {
@@ -52,6 +56,7 @@ namespace kash.triplog.Navigation
             }
         }
 
+        /// <inheritdoc />
         public async Task NavigateTo<TVM, TParameter>(TParameter parameter) where TVM : ViewModelBase
         {
             await NavigateToView(typeof(TVM));
@@ -61,7 +66,7 @@ namespace kash.triplog.Navigation
                 await ((ViewModelBase<TParameter>)(XamarinFormsNav.NavigationStack.Last().BindingContext)).Init(parameter);
             }
         }
-
+        
         async Task NavigateToView(Type viewModelType)
         {
             Type viewType;
@@ -80,6 +85,7 @@ namespace kash.triplog.Navigation
             await XamarinFormsNav.PushAsync(view, true);
         }
 
+        /// <inheritdoc />
         public async Task RemoveLastView()
         {
             if (XamarinFormsNav.NavigationStack.Any())
@@ -89,6 +95,7 @@ namespace kash.triplog.Navigation
             }
         }
 
+        /// <inheritdoc />
         public async Task ClearBackStack()
         {
             if (XamarinFormsNav.NavigationStack.Count <= 1)
@@ -101,6 +108,7 @@ namespace kash.triplog.Navigation
             }
         }
 
+        /// <inheritdoc />
         public async Task NavigateToUri(Uri uri)
         {
             if (uri == null)
@@ -110,6 +118,7 @@ namespace kash.triplog.Navigation
             Device.OpenUri(uri);
         }
 
+        /// <inheritdoc />
         public event PropertyChangedEventHandler CanGoBackChanged;
         void OnCanGoBackChanged()
         {

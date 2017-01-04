@@ -31,6 +31,7 @@ namespace kash.triplog.Droid.GeoLocation
                 Latitude = position.Latitude,
                 Longitude = position.Longitude
             };
+
             return result;
         }
     }
