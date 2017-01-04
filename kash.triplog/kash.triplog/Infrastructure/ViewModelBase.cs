@@ -22,6 +22,22 @@ namespace kash.triplog.Infrastructure
         /// </summary>
         protected INavService NavService { get; private set; }
 
+        bool isBusy;
+
+        /// <summary>
+        /// Indica se el ViewModel está ocupado realizando un proceso de carga actualmente
+        /// </summary>
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                isBusy = value;
+                OnPropertyChanged();
+                OnIsBusyChanged();
+            }
+        }
+
         /// <summary>
         /// Inicializa un instancia de <see cref="ViewModelBase"/>
         /// </summary>
@@ -44,6 +60,8 @@ namespace kash.triplog.Infrastructure
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        protected virtual void OnIsBusyChanged() { }
     }
 
     public abstract class ViewModelBase<TParameter> : ViewModelBase

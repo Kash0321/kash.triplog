@@ -66,7 +66,17 @@ namespace kash.triplog.Main
 
         async Task LoadEntries()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
             LogEntries.Clear();
+
+            // TODO: Remove this in Chapter 6
+            await Task.Delay(3000);
 
             await Task.Factory.StartNew(() =>
             {
@@ -98,6 +108,8 @@ namespace kash.triplog.Main
                     Longitude = -122.4798
                 });
             });
+
+            IsBusy = false;
         }
     }
 }
