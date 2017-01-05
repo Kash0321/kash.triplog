@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="kash.triplog.Main.MainView"
+             xmlns:sl="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:ktm="clr-namespace:kash.triplog.Main"
-             xmlns:vc="clr-namespace:kash.triplog.Infrastructure.Converters;assembly=kash.triplog.dll"
+             xmlns:vc="clr-namespace:kash.triplog.Infrastructure.Converters;assembly=kash.triplog"
+             x:Class="kash.triplog.Main.MainView"
              Title="Trip Log">
 
   <ContentPage.Resources>
@@ -17,16 +18,31 @@
   </ContentPage.ToolbarItems>
 
   <StackLayout x:Name="RootLayout" HorizontalOptions="Center">
-    <ListView x:Name="Entries" ItemsSource="{Binding LogEntries}" IsVisible="{Binding IsBusy, Converter={StaticResource not}}">
+    <!--<ListView x:Name="Entries" ItemsSource="{Binding LogEntries}" IsVisible="{Binding IsBusy, Converter={StaticResource not}}">
       <ListView.ItemTemplate>
         <DataTemplate>
           <TextCell Text="{Binding Title}" Detail="{Binding Notes}" />
         </DataTemplate>
       </ListView.ItemTemplate>
-    </ListView>
+    </ListView>-->
+    <sl:SfListView x:Name="Entries" ItemsSource="{Binding LogEntries}" IsVisible="{Binding IsBusy, Converter={StaticResource not}}">
+      <sl:SfListView.ItemTemplate>
+        <DataTemplate>
+          <Grid Padding="10">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="0.4*" />
+              <RowDefinition Height="0.6*" />
+            </Grid.RowDefinitions>
+            <Label Text="{Binding Title}" FontAttributes="Bold" TextColor="Teal" FontSize="21" />
+            <Label Grid.Row="1" Text="{Binding Notes}" TextColor="Teal" FontSize="15"/>
+          </Grid>
+        </DataTemplate>
+      </sl:SfListView.ItemTemplate>
+    </sl:SfListView>
     <StackLayout x:Name="Loader" Padding="0,50,0,0" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsBusy}">
       <ActivityIndicator IsRunning="true" />
       <Label Text="Cargando..." />
     </StackLayout>
-  </StackLayout>
+  
+</StackLayout>
 </ContentPage>

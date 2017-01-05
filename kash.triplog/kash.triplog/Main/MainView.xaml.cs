@@ -34,7 +34,7 @@ namespace kash.triplog.Main
             InitializeComponent();
 
             Entries.ItemTapped += async (sender, e) => {
-                var item = (TripLogEntry)e.Item;
+                var item = (TripLogEntry)e.ItemData;
                 ViewModel.ViewCommand.Execute(item);
             };
         }
