@@ -17,15 +17,8 @@
       <ToolbarItem Name="NewButton" Text="New" Command="{Binding NewCommand}" />
   </ContentPage.ToolbarItems>
 
-  <StackLayout x:Name="RootLayout" HorizontalOptions="Center">
-    <!--<ListView x:Name="Entries" ItemsSource="{Binding LogEntries}" IsVisible="{Binding IsBusy, Converter={StaticResource not}}">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <TextCell Text="{Binding Title}" Detail="{Binding Notes}" />
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>-->
-    <sl:SfListView x:Name="Entries" ItemsSource="{Binding LogEntries}" IsVisible="{Binding IsBusy, Converter={StaticResource not}}">
+  <StackLayout x:Name="RootLayout" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <sl:SfListView x:Name="Entries" ItemSize="100" ItemsSource="{Binding LogEntries}" IsVisible="{Binding IsBusy, Converter={StaticResource not}}">
       <sl:SfListView.ItemTemplate>
         <DataTemplate>
           <Grid Padding="10">

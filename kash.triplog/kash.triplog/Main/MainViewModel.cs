@@ -78,7 +78,7 @@ namespace kash.triplog.Main
             // TODO: Remove this in Chapter 6
             await Task.Delay(3000);
 
-            await Task.Factory.StartNew(() =>
+            Device.BeginInvokeOnMainThread(() =>
             {
                 LogEntries.Add(new TripLogEntry
                 {
