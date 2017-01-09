@@ -1,4 +1,6 @@
-﻿using kash.triplog.Detail;
+﻿using Akavache;
+using kash.triplog.Detail;
+using kash.triplog.Http;
 using kash.triplog.Main;
 using kash.triplog.NewEntry;
 using Ninject.Modules;
@@ -18,6 +20,13 @@ namespace kash.triplog.IoC
             Bind<MainViewModel>().ToSelf();
             Bind<DetailViewModel>().ToSelf();
             Bind<NewEntryViewModel>().ToSelf();
+
+            // Core Services
+            var tripLogService = new TripLogApiDataService(new Uri("https://ktriplog.azurewebsites.net"));
+            Bind<ITripLogDataService>()
+                .ToMethod(x => tripLogService)
+                .InSingletonScope();
+            Bind<IBlobCache>().ToConstant(BlobCache.LocalMachine);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace kash.triplog.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Splat.Resource.String.library_name = global::kash.triplog.Droid.Resource.String.library_name;
 			global::Syncfusion.ListView.XForms.Android.Resource.Animation.abc_fade_in = global::kash.triplog.Droid.Resource.Animation.abc_fade_in;
 			global::Syncfusion.ListView.XForms.Android.Resource.Animation.abc_fade_out = global::kash.triplog.Droid.Resource.Animation.abc_fade_out;
 			global::Syncfusion.ListView.XForms.Android.Resource.Animation.abc_grow_fade_in_from_bottom = global::kash.triplog.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -5196,6 +5197,9 @@ namespace kash.triplog.Droid
 			
 			// aapt resource value: 0x7f06001e
 			public const int common_signin_button_text_long = 2131099678;
+			
+			// aapt resource value: 0x7f060047
+			public const int library_name = 2131099719;
 			
 			// aapt resource value: 0x7f06001f
 			public const int mr_button_content_description = 2131099679;

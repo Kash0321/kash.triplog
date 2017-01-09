@@ -1,4 +1,5 @@
 ﻿using kash.triplog.GeoLocation;
+using kash.triplog.Http;
 using kash.triplog.Infrastructure;
 using kash.triplog.Main;
 using kash.triplog.Model;
@@ -16,6 +17,7 @@ namespace kash.triplog.NewEntry
     public class NewEntryViewModel : ViewModelBase
     {
         ILocationService LocationService { get; set; }
+        ITripLogDataService TripLogService { get; set; }
 
         Command saveCommand;
         public Command SaveCommand
@@ -28,6 +30,12 @@ namespace kash.triplog.NewEntry
 
         async Task ExecuteSaveCommand()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
             var newItem = new TripLogEntry
             {
                 Title = Title,
@@ -37,9 +45,16 @@ namespace kash.triplog.NewEntry
                 Rating = Rating,
                 Notes = Notes
             };
-            // TODO: Implement logic to persist Entry in a later chapter.
 
-            await NavService.GoBack();
+            try
+            {
+                await TripLogService.AddEntryAsync(newItem);
+                await NavService.GoBack();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         bool CanSave()
@@ -47,12 +62,13 @@ namespace kash.triplog.NewEntry
             return !string.IsNullOrWhiteSpace(Title);
         }
 
-        public NewEntryViewModel(INavService navService, ILocationService locService) : base(navService)
+        public NewEntryViewModel(INavService navService, ILocationService locService, ITripLogDataService tripLogService) : base(navService)
         {
             Date = DateTime.Today;
             Rating = 1;
 
             LocationService = locService;
+            TripLogService = tripLogService;
         }
 
         public override async Task Init()
